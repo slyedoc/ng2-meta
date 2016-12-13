@@ -1,3 +1,2 @@
-export { MetaConfig } from './models/meta-config';
-export { MetaService } from './meta.service';
-export { MetaModule } from './meta.module';
+export {MetaModule} from './meta.module'
+export {MetaService, MetaServiceConfig} from './meta.service';

@@ -1,24 +1,48 @@
-import { Inject, Injectable, Optional } from '@angular/core';
-import { Title, DOCUMENT } from '@angular/platform-browser';
-import { Router, NavigationEnd, Event as NavigationEvent, ActivatedRoute } from '@angular/router';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
 
-import { META_CONFIG } from './meta.module';
-import { MetaConfig } from './models/meta-config';
+import {Inject, Injectable, Optional} from '@angular/core';
+import {DOCUMENT, Title} from '@angular/platform-browser';
+import {ActivatedRoute, Event as NavigationEvent, NavigationEnd, Router} from '@angular/router';
 
 const isDefined = (val: any) => typeof val !== 'undefined';
 
+export class MetaServiceConfig {
+  /**
+   * Flag to append an optional title suffix to the title.
+   * Default value: false
+   */
+  useTitleSuffix?: boolean = false;
+  /**
+   * A dictionary of default meta tags and their values
+   */
+  defaults?: {
+    /**
+     * The default title, used when a route does not have its own titleSuffix.
+     */
+    title?: string;
+    /**
+     * The default titleSuffix, used when useTitleSuffix is set to true
+     * and a route does not have its own titleSuffix.
+     */
+    titleSuffix?: string;
+    [key: string]: string;
+  };
+}
+
 @Injectable()
 export class MetaService {
-  constructor(private router: Router, @Inject(DOCUMENT) private document: any, private titleService: Title, private activatedRoute: ActivatedRoute,
-              @Inject(META_CONFIG) private metaConfig: MetaConfig) {
-    this.router.events
-      .filter(event => (event instanceof NavigationEnd))
-      .map(() => this._findLastChild(this.activatedRoute))
-      .subscribe((routeData: any) => {
-        this._updateMetaTags(routeData.meta);
-      });
+  constructor(
+      private router: Router, @Inject(DOCUMENT) private document: any, private titleService: Title,
+      private activatedRoute: ActivatedRoute, private metaConfig: MetaServiceConfig) {
+    console.log('test');
+    this.router.events.filter(event => (event instanceof NavigationEnd))
+        .map(() => this._findLastChild(this.activatedRoute))
+        .subscribe((routeData: any) => {
+          console.log('update');
+          console.log(routeData.meta);
+          this._updateMetaTags(routeData.meta);
+        });
   }
 
   private _findLastChild(activatedRoute: ActivatedRoute) {
@@ -43,7 +67,6 @@ export class MetaService {
   }
 
   private _updateMetaTags(meta: any = {}) {
-
     if (meta.disableUpdate) {
       return false;
     }

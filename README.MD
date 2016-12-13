@@ -12,14 +12,10 @@ This is an Angular2 SEO/meta tags module. For the Angular 1.x module, check out 
 To install this library, run:
 
 ```bash
-$ npm install ng2-meta --save
-```
-**Note**: If you're seeing errors about "duplicate identifiers", please install ng2-meta directly from GitHub until [#13](https://github.com/vinaygopinath/ng2-meta/issues/13) is resolved.
-```bash
-npm install --save vinaygopinath/ng2-meta
+$ npm install @slydoc/ng2-meta --save
 ```
 
-ng2-meta works with angular2 2.0.0 and @angular/router 3.0.0 or higher.
+ng2-meta works with angular-cli beta-22, angular 2.2.3 and @angular/router 3.2.3 or higher.
 
 ### Modify routes
 
@@ -171,6 +167,10 @@ To lint all `*.ts` files:
 ```bash
 $ npm run lint
 ```
+
+Added support for clang format check out
+
+[ng-bootstrap development section] (https://github.com/ng-bootstrap/ng-bootstrap/blob/master/DEVELOPER.md) fro more info.
 
 ## Licence
 

@@ -1,21 +1,16 @@
-import { OpaqueToken, NgModule, ModuleWithProviders } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { MetaService } from './meta.service';
-import { MetaConfig } from './models/meta-config';
+import {ModuleWithProviders, NgModule, Optional, SkipSelf} from '@angular/core';
+import {RouterModule} from '@angular/router';
+import {MetaService, MetaServiceConfig} from './meta.service';
 
-export const META_CONFIG = new OpaqueToken('meta config');
-
-@NgModule({
-  imports: [RouterModule]
-})
+@NgModule({imports: [RouterModule], declarations: [], providers: [MetaService], exports: []})
 export class MetaModule {
-  static forRoot(metaConfig: MetaConfig = { useTitleSuffix: false, defaults: {} }): ModuleWithProviders {
-    return {
-      ngModule: MetaModule,
-      providers: [ 
-            { provide: META_CONFIG, useValue: metaConfig},
-            MetaService 
-       ]
-    };
+  static forRoot(config: MetaServiceConfig): ModuleWithProviders {
+    return {ngModule: MetaModule, providers: [{provide: MetaServiceConfig, useValue: config}]};
+  }
+
+  constructor(@Optional() @SkipSelf() parentModule: MetaModule) {
+    if (parentModule) {
+      throw new Error('MetaModule is already loaded. Import it in the AppModule only');
+    }
   }
 }

@@ -1,35 +1,24 @@
 {
   "compilerOptions": {
-    "noImplicitAny": false,
-    "module": "commonjs",
     "target": "es5",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
+    "lib": ["es2015", "dom"],
+    "module": "es2015",
     "moduleResolution": "node",
-    "removeComments": true,
-    "sourceMap": true,
     "declaration": true,
-    "outDir": "./dist",
-    "noLib": false,
-    "inlineSources": true,
+    "experimentalDecorators": true,
     "baseUrl": ".",
-    "noEmitOnError": false,
+    "stripInternal": true,
+    "outDir": "./dist",
     "rootDir": "./src",
-    "lib": [
-      "dom",
-      "es6"
-    ],
-    "types": [
-      "node"
-    ]
+    "sourceMap": true,
+    "inlineSources": true,
+    "skipLibCheck": true
   },
-  "include": [
-    "src/**/*"
-  ],
-  "exclude": [
-    "node_modules"
+  "files": [
+    "./src/index.ts"
   ],
   "angularCompilerOptions": {
-    "strictMetadataEmit": true
+    "strictMetadataEmit": true,
+    "genDir": "./dist/waste"
   }
 }
